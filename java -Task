@@ -1,0 +1,104 @@
+// A.Create an Array with the values (1,2,3,4,5,6,7) and Shuffle it.
+import java.util.Random;
+
+public class ArrayShuffle {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        shuffleArray(array);
+        for (int element : array) {
+            System.out.print(element + " ");
+        }
+    }
+
+    public static void shuffleArray(int[] array) {
+        Random random = new Random();
+        for (int i = array.length - 1; i > 0; i--) {
+            int index = random.nextInt(i + 1);
+            // Swap array[i] and array[index]
+            int temp = array[i];
+            array[i] = array[index];
+            array[index] = temp;
+        }
+    }
+}
+
+// B.Enter a Roman Number as a input and convert it to an integer.
+public class RomanToInteger {
+    public static void main(String[] args) {
+        String romanNumeral = "IX";
+        int result = romanToInt(romanNumeral);
+        System.out.println(result);
+    }
+
+    public static int romanToInt(String s) {
+        int result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int current = romanCharToInt(s.charAt(i));
+            if (i + 1 < s.length()) {
+                int next = romanCharToInt(s.charAt(i + 1));
+                if (current < next) {
+                    result -= current;
+                } else {
+                    result += current;
+                }
+            } else {
+                result += current;
+            }
+        }
+        return result;
+    }
+
+    public static int romanCharToInt(char c) {
+        switch (c) {
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+            default:
+                return 0;
+        }
+    }
+}
+
+// C.Check if the input is pangram or not.
+
+public class PangramChecker {
+    public static void main(String[] args) {
+        String input = "The quick brown fox jumps over the lazy dog";
+        boolean isPangram = isPangram(input.toLowerCase());
+        if (isPangram) {
+            System.out.println("The input is a pangram.");
+        } else {
+            System.out.println("The input is not a pangram.");
+        }
+    }
+
+    public static boolean isPangram(String s) {
+        boolean[] charSet = new boolean[26];
+        int index;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c >= 'a' && c <= 'z') {
+                index = c - 'a';
+                charSet[index] = true;
+            }
+        }
+
+        for (boolean value : charSet) {
+            if (!value) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
